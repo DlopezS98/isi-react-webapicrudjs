@@ -2,7 +2,7 @@ import React, { useContext, createContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import UserModel from '../models/user.model';
 
-const AuthContext = createContext({ isSignedIn: false, signIn: async () => {}, logout: () => {}, user: null, token: null });
+const AuthContext = createContext({ isSignedIn: false, signIn: async () => { }, logout: () => { }, user: null, token: null });
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -44,7 +44,11 @@ const AuthProvider = ({ children }) => {
     navigate('/login');
   };
 
-  return <AuthContext.Provider value={{ isSignedIn: user !== null, signIn, user, token, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ isSignedIn: user !== null, signIn, user, token, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
