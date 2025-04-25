@@ -1,0 +1,55 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 24px;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form__group label {
+  margin-bottom: 8px;
+}
+
+.form__group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.form__group input:focus {
+  outline: none;
+  border-color: burlywood;
+}
+
+.form__group select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.form__group select:focus {
+  outline: none;
+  border-color: burlywood;
+}
+
+.form__group textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  font-family: inherit;
+}
+
+.form__group textarea:focus {
+  outline: none;
+  border-color: burlywood;
+}

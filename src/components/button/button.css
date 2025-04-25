@@ -1,0 +1,40 @@
+.isi-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 8px 24px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+
+  gap: 8px;
+}
+
+.isi-button:disabled {
+  background-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.isi-button:disabled:hover {
+  background-color: #ddd;
+}
+
+.isi-button.primary {
+  background-color: burlywood;
+  color: black;
+}
+
+.isi-button.primary:hover {
+  background-color: rgb(204, 164, 111);
+}
+
+.isi-button.secondary {
+  background-color: darkcyan;
+  color: white;
+}
+
+.isi-button.secondary:hover {
+  background-color: rgb(2, 115, 115);
+}

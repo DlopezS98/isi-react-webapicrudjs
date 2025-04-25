@@ -1,0 +1,134 @@
+.admin-container {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	grid-template-rows: 80px calc(100vh - 80px);
+	grid-template-areas: "admin-header		admin-header"
+		"admin-sidebar		admin-container";
+
+}
+
+.admin-header {
+	grid-area: admin-header;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background-color: aliceblue;
+	padding: 8px 24px;
+}
+
+.admin-header .admin-header-logo {
+	display: flex;
+	height: 60px;
+	width: 60px;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+
+	background-color: #303030;
+	border-radius: 50%;
+}
+
+.admin-header .admin-header-logo img {
+	height: fit-content;
+}
+
+.admin-header .admin-header-toolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+}
+
+.admin-header .admin-header-toolbar .user-avatar {
+	display: flex;
+	height: 60px;
+	width: 60px;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+
+	background-color: #303030;
+	border-radius: 50%;
+}
+
+.admin-header .admin-header-toolbar .user-avatar img {
+	height: fit-content;
+}
+
+.admin-sidebar {
+	grid-area: admin-sidebar;
+	background-color: antiquewhite;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.admin-sidebar ul {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+}
+
+.admin-sidebar ul li {
+	display: grid;
+}
+
+.admin-sidebar ul li a {
+	text-decoration: none;
+	padding: 12px;
+	color: #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+}
+
+.admin-sidebar ul li a.active {
+	background-color: burlywood;
+	color: #fff;
+}
+
+.admin-sidebar ul li a:hover {
+	background-color: burlywood;
+	color: #fff;
+}
+
+.admin-sidebar .logout-container button {
+	padding: 12px;
+	width: 100%;
+	border-style: none;
+	background-color: burlywood;
+	font-weight: 600;
+	cursor: pointer;
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+	align-items: center;
+}
+
+.admin-sidebar .logout-container button:hover {
+	background-color: rgb(204, 161, 106);
+}
+
+.admin-main-container {
+	grid-area: admin-container;
+
+	display: grid;
+	grid-template-rows: 1fr 100px;
+	grid-template-areas: "admin-content"
+		"admin-footer";
+	overflow-y: auto;
+}
+
+.admin-main-content {
+	grid-area: admin-content;
+}
+
+.admin-footer {
+	grid-area: admin-footer;
+	background-color: #c0c0c0;
+}

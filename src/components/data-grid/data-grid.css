@@ -1,0 +1,89 @@
+.isi-datagrid-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.isi-datagrid-container .isi-datagrid-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+
+  background-color: aliceblue;
+
+  position: sticky;
+  top: 0;
+  padding: 8px 0;
+}
+
+.isi-datagrid-container .isi-datagrid-toolbar .isi-datagrid-toolbar-items {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.isi-datagrid-container .isi-datagrid-toolbar .isi-datagrid-search {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.isi-datagrid-container .isi-datagrid-toolbar .isi-datagrid-search input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.isi-datagrid-container .isi-datagrid-toolbar .isi-datagrid-search input:focus {
+  outline: none;
+  border-color: burlywood;
+}
+
+.isi-datagrid-container table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.isi-datagrid-container th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.isi-datagrid-container td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.isi-datagrid-container tr:nth-child(even) {
+  background-color: #e9ecf4;
+}
+
+.isi-datagrid-container tbody tr:hover {
+  background-color: burlywood;
+  color: white;
+}
+
+.isi-datagrid-container thead tr th {
+  background-color: #e9ecf4;
+  color: #333;
+}
+
+.isi-datagrid-container table thead tr {
+  position: sticky;
+  top: 58px;
+}
+
+/* .isi-datagrid-container .isi-datagrid-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+} */

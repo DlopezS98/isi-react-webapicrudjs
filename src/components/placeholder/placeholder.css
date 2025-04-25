@@ -1,0 +1,18 @@
+.isi-placeholder {
+  /* text-align: center;
+	position: relative;
+	left: 50%;
+	top: calc(50% - 60px);
+	top: 50%;
+	width: 230px;
+	transform: translate(-50%, -50%); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 24px auto;
+}
+
+.isi-placeholder .cactus {
+  height: 60px;
+}
