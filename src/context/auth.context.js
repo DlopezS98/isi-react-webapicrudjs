@@ -1,36 +1,23 @@
 import React, { useContext, createContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import UserModel from '../models/user.model';
+import UsersService from '../services/users.service';
 
 const AuthContext = createContext({ isSignedIn: false, signIn: async () => { }, logout: () => { }, user: null, token: null });
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('authToken'));
+  const usersService = new UsersService();
 
   const navigate = useNavigate();
 
   const signIn = async (data) => {
     try {
       // Uncomment for real api call
-      // const response = await fetch('your-api-endpoint/auth/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(data),
-      // });
-      // const res = await response.json();
-      // if (res.data) {
-      //   setUser(res.data.user);
-      //   setToken(res.token);
-      //   localStorage.setItem('authToken', res.token);
-      //   navigate('/dashboard');
-      //   return;
-      // }
-      // throw new Error(res.message);
+      const token = await usersService.signIn(data.username, data.password);
       setUser(new UserModel(1, 'Danny', 'López', '01dlopezs98@gmail.com'));
-      setToken(token);
+      setToken(token.token);
       navigate('/admin');
     } catch (err) {
       console.error(err);
