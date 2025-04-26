@@ -22,6 +22,16 @@ export default function DataGrid(props) {
   };
 
   const getCell = (row, column) => {
+    if (column.cellTemplate) {
+      const CellTemplate = column.cellTemplate;
+
+      return (
+        <td key={column.field}>
+          <CellTemplate row={row} column={column} value={getCellValue(row, column)} />
+        </td>
+      );
+    }
+
     return (
       <td key={column.field}>
         {column.prefix ? (
