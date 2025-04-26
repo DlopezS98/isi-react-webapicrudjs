@@ -38,3 +38,8 @@
 .isi-button.secondary:hover {
   background-color: rgb(2, 115, 115);
 }
+
+.isi-button.danger {
+  background-color: crimson;
+  color: white;
+}
