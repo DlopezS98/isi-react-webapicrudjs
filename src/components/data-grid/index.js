@@ -3,7 +3,11 @@ import './data-grid.css';
 import { useDebouncedCallback } from 'use-debounce';
 
 export default function DataGrid(props) {
-  const [filteredRows, setFilteredRows] = React.useState(() => props.rows);
+  const [filteredRows, setFilteredRows] = React.useState([]);
+
+  React.useEffect(() => {
+    setFilteredRows(props.rows);
+  }, [props.rows]);
 
   const getColumnHeader = (column) => {
     return <th key={column.field}>{column.header}</th>;
