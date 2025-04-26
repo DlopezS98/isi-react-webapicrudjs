@@ -5,12 +5,35 @@ import DataGrid from '../../components/data-grid';
 import { useNavigate } from 'react-router';
 import { FiPlus } from 'react-icons/fi';
 import ProductsService from '../../services/products.service';
+import BrandsService from '../../services/brands.service';
+
+const BrandCell = ({ value }) => {
+  const brandsService = React.useMemo(() => new BrandsService(), []);
+  const [brand, setBrand] = useState();
+
+  useEffect(() => {
+    const fetchBrand = async () => {
+      const result = await brandsService.getById(value);
+      setBrand(result);
+    };
+
+    fetchBrand();
+  }, [brandsService, value]);
+
+  return <span>{brand ? brand.name : 'Loading...'}</span>;
+};
 
 const columns = [
   {
     header: 'Name',
     field: 'name',
     type: 'text',
+  },
+  {
+    header: 'Brand',
+    field: 'brandId',
+    type: 'text',
+    cellTemplate: BrandCell,
   },
   {
     header: 'Price',
@@ -37,7 +60,6 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const result = await productsService.get();
-      console.log(result);
       setProducts(result);
     };
 
