@@ -17,7 +17,9 @@ export default class ProductsService extends HttpService {
     }
 
     async create(product) {
-        const json = await super.post('api/producto', product);
+        product.createdAt = new Date();
+        const body = Product.fromJsonModel(product).toJsonDto();
+        const json = await super.post('api/producto', body);
         if (!json) return null;
 
         return Product.fromJson(json);
