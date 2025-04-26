@@ -11,6 +11,7 @@ import ProtectedRoute from './components/protected-route';
 import AdminLayout from './admin/layout';
 import ProductsPage from './admin/products/page';
 import CreateProductPage from './admin/products/create';
+import EditProductPage from './admin/products/edit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +29,7 @@ root.render(
               <Route path='products'>
                 <Route index element={<ProductsPage />} />
                 <Route path='create' element={<CreateProductPage />} />
+                <Route path='edit/:id' element={<EditProductPage />} />
               </Route>
             </Route>
           </Route>
