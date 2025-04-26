@@ -9,10 +9,10 @@ export default class Category {
     
     static fromJson(json) {
         const id = Number(json["idCategoria"]) || 0;
-        const name = String(json["nombre"] || "");
+        const name = String(json["nombreCategoria"] || "");
         const description = String(json["descripcion"] || "");
         const isActive = Boolean(json["activo"] || false);
-        const createdAt = new Date(json["createdAt"] || null);
+        const createdAt = new Date(json["fechaRegistro"] || null);
         return new Category(id, name, description, isActive, createdAt);
     }
 }
