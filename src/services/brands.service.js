@@ -4,7 +4,7 @@ import Brand from '../models/brand.js';
 export default class BrandsService extends HttpService {
     async get() {
         const json = await super.get('api/marca');
-        return Brand.fromJson(json);
+        return json.map((item) => Brand.fromJson(item));
     }
 
     async getById(id) {
