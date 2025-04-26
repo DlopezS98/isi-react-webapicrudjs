@@ -6,4 +6,11 @@ export default class BrandsService extends HttpService {
         const json = await super.get('api/marca');
         return Brand.fromJson(json);
     }
+
+    async getById(id) {
+        const json = await super.get(`api/marca/${id}`);
+        if (!json) return null;
+
+        return Brand.fromJson(json);
+    }
 }
