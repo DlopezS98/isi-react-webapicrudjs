@@ -8,4 +8,18 @@ export default class ProductsService extends HttpService {
 
         return json.map((product) => Product.fromJson(product));
     }
+
+    async getById(id) {
+        const json = await super.get(`api/producto/${id}`);
+        if (!json) return null;
+
+        return Product.fromJson(json);
+    }
+
+    async create(product) {
+        const json = await super.post('api/producto', product);
+        if (!json) return null;
+
+        return Product.fromJson(json);
+    }
 }
