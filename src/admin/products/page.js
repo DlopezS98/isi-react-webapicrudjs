@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { FiPlus } from 'react-icons/fi';
 import ProductsService from '../../services/products.service';
 import BrandsService from '../../services/brands.service';
+import CategoriesService from '../../services/categories.service';
 
 const BrandCell = ({ value }) => {
   const brandsService = React.useMemo(() => new BrandsService(), []);
@@ -23,6 +24,23 @@ const BrandCell = ({ value }) => {
   return <span>{brand ? brand.name : 'Loading...'}</span>;
 };
 
+const CategoryCell = ({ value }) => {
+  const categoriesService = React.useMemo(() => new CategoriesService(), []);
+  const [category, setCategory] = useState();
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      const result = await categoriesService.getById(value);
+      console.log("category", result);
+      setCategory(result);
+    };
+
+    fetchCategory();
+  }, [categoriesService, value]);
+
+  return <span>{category ? category.name : 'Loading...'}</span>;
+};
+
 const columns = [
   {
     header: 'Name',
@@ -34,6 +52,12 @@ const columns = [
     field: 'brandId',
     type: 'text',
     cellTemplate: BrandCell,
+  },
+  {
+    header: 'Category',
+    field: 'categoryId',
+    type: 'text',
+    cellTemplate: CategoryCell,
   },
   {
     header: 'Price',
