@@ -16,7 +16,7 @@ export default class Product {
         const name = String(json['nombreProducto'] || '');
         const unitPrice = Number(json['precioUnidad']) || 0;
         const active = Boolean(json['activo']) || false;
-        const createdAt = String(json['fechaRegistro'] || '');
+        const createdAt = new Date(json['fechaRegistro'] || '');
         return new Product(id, brandId, categoryId, name, unitPrice, active, createdAt);
     }
 }
