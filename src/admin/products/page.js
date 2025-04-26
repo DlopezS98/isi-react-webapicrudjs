@@ -1,16 +1,12 @@
+import React, { useEffect, useState } from 'react';
 import Button from '../../components/button';
 import Card, { CardBody, CardHeader } from '../../components/card';
 import DataGrid from '../../components/data-grid';
-import { Products } from './data';
 import { useNavigate } from 'react-router';
 import { FiPlus } from 'react-icons/fi';
+import ProductsService from '../../services/products.service';
 
 const columns = [
-  {
-    header: 'Id',
-    field: 'id',
-    type: 'number',
-  },
   {
     header: 'Name',
     field: 'name',
@@ -18,7 +14,7 @@ const columns = [
   },
   {
     header: 'Price',
-    field: 'price',
+    field: 'unitPrice',
     type: 'money',
     prefix: '$',
   },
@@ -30,11 +26,23 @@ const columns = [
 ];
 
 const ProductsPage = () => {
+  const productsService = React.useMemo(() => new ProductsService(), []);
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
 
   const handleAddProduct = () => {
     navigate('/admin/products/create');
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const result = await productsService.get();
+      console.log(result);
+      setProducts(result);
+    };
+
+    fetchProducts();
+  }, [productsService]);
 
   return (
     <Card>
@@ -49,7 +57,7 @@ const ProductsPage = () => {
               <FiPlus /> Add product
             </Button>
           }
-          rows={Products}
+          rows={products}
           columns={columns}
         />
       </CardBody>
