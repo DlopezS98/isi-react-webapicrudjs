@@ -31,7 +31,6 @@ const CategoryCell = ({ value }) => {
   useEffect(() => {
     const fetchCategory = async () => {
       const result = await categoriesService.getById(value);
-      console.log("category", result);
       setCategory(result);
     };
 

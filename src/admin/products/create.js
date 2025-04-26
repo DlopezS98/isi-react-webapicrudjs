@@ -1,8 +1,51 @@
+import React from 'react';
+import { useNavigate } from 'react-router';
+
 import Button from '../../components/button';
 import Card, { CardBody, CardHeader } from '../../components/card';
 import { FiSave } from 'react-icons/fi';
+import CategoriesService from '../../services/categories.service';
+import BrandsService from '../../services/brands.service';
+import ProductsService from '../../services/products.service';
 
 export default function CreateProductPage() {
+  const categoriesService = React.useMemo(() => new CategoriesService(), []);
+  const brandsService = React.useMemo(() => new BrandsService(), []);
+  const productsService = React.useMemo(() => new ProductsService(), []);
+
+  const navigate = useNavigate();
+
+  const [brands, setBrands] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
+  
+  React.useEffect(() => {
+    const fetchCategories = async () => {
+      const result = await categoriesService.get();
+      setCategories(result);
+    };
+
+    fetchCategories();
+  }, [categoriesService]);
+
+  React.useEffect(() => {
+    const fetchBrands = async () => {
+      const result = await brandsService.get();
+      setBrands(result);
+    };
+
+    fetchBrands();
+  }, [brandsService]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+    
+    await productsService.create(data);
+    navigate('/admin/products');
+  };
+
+
   return (
     <Card>
       <CardHeader>
@@ -11,7 +54,7 @@ export default function CreateProductPage() {
         </div>
       </CardHeader>
       <CardBody>
-        <form className='form shadow-md'>
+        <form onSubmit={handleSubmit} className='form shadow-md'>
           <div className='row gap-2 justify-center align-center'>
             <div className='column form__group'>
               <label htmlFor='name'>Product name</label>
@@ -19,21 +62,31 @@ export default function CreateProductPage() {
             </div>
             <div className='column form__group'>
               <label htmlFor='category'>Category</label>
-              <select id='category' name='category' className='select'>
+              <select id='category' name='categoryId' className='select'>
                 <option value=''>Select category</option>
-                <option value='1'>Category 1</option>
-                <option value='2'>Category 2</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
           <div className='row gap-2 justify-center align-center'>
             <div className='column form__group'>
-              <label htmlFor='price'>Price</label>
-              <input type='number' id='price' name='price' placeholder='Product price' />
+              <label htmlFor='quantity'>Brand</label>
+              <select id='brand' name='brandId' className='select'>
+                <option value=''>Select brand</option>
+                {brands.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className='column form__group'>
-              <label htmlFor='quantity'>Quantity</label>
-              <input type='number' id='quantity' name='quantity' placeholder='Product quantity' />
+              <label htmlFor='price'>Price</label>
+              <input type='number' id='price' name='unitPrice' placeholder='Product price' />
             </div>
           </div>
           <div className='row'>
@@ -43,7 +96,7 @@ export default function CreateProductPage() {
             </div>
           </div>
           <div className='column'>
-            <Button onClick={() => {}} variant='primary'>
+            <Button type="submit" variant='primary'>
               <FiSave /> Create Product
             </Button>
           </div>
