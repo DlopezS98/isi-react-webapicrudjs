@@ -24,4 +24,12 @@ export default class ProductsService extends HttpService {
 
         return Product.fromJson(json);
     }
+
+    async update(id, product) {
+        const body = Product.fromJsonModel(product).toJsonDto();
+        const json = await super.put(`api/producto/${id}`, body);
+        if (!json) return null;
+
+        return Product.fromJson(json);
+    }
 }
