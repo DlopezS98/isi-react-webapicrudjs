@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from 'react';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import UserModel from '../models/user.model';
 import UsersService from '../services/users.service';
@@ -12,11 +12,16 @@ const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Make an API call to fetch user data
+    setUser(new UserModel(1, 'Danny', 'López', '01dlopezs98@gmail.com'));
+    localStorage.setItem('authToken', token);
+  }, [token]);
+
   const signIn = async (data) => {
     try {
       // Uncomment for real api call
       const token = await usersService.signIn(data.username, data.password);
-      setUser(new UserModel(1, 'Danny', 'López', '01dlopezs98@gmail.com'));
       setToken(token.token);
       navigate('/admin');
     } catch (err) {
