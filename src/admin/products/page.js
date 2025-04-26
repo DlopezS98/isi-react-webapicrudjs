@@ -40,6 +40,29 @@ const CategoryCell = ({ value }) => {
   return <span>{category ? category.name : 'Loading...'}</span>;
 };
 
+const ActionsCell = ({ row }) => {
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`/admin/products/edit/${row.id}`);
+  };
+
+  const handleDelete = async () => {
+    console.log('Deleting product with ID:', row.id);
+  };
+
+  return (
+    <div className='flex gap-1'>
+      <Button onClick={handleEdit} variant='secondary'>
+        Edit
+      </Button>
+      <Button onClick={handleDelete} variant='danger'>
+        Delete
+      </Button>
+    </div>
+  );
+};
+
 const columns = [
   {
     header: 'Name',
@@ -69,6 +92,12 @@ const columns = [
     field: 'createdAt',
     type: 'date',
   },
+  {
+    header: "Actions",
+    field: "actions",
+    type: "actions",
+    cellTemplate: ActionsCell,
+  }
 ];
 
 const ProductsPage = () => {
