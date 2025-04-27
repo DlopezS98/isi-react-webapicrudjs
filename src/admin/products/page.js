@@ -40,15 +40,19 @@ const CategoryCell = ({ value }) => {
   return <span>{category ? category.name : 'Loading...'}</span>;
 };
 
-const ActionsCell = ({ row }) => {
+const ActionsCell = ({ row, onRowDeleted }) => {
   const navigate = useNavigate();
+  const productsService = React.useMemo(() => new ProductsService(), []);
 
   const handleEdit = () => {
     navigate(`/admin/products/edit/${row.id}`);
   };
 
   const handleDelete = async () => {
-    console.log('Deleting product with ID:', row.id);
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      await productsService.delete(row.id);
+      onRowDeleted(row);
+    }
   };
 
   return (
@@ -63,59 +67,65 @@ const ActionsCell = ({ row }) => {
   );
 };
 
-const columns = [
-  {
-    header: 'Name',
-    field: 'name',
-    type: 'text',
-  },
-  {
-    header: 'Brand',
-    field: 'brandId',
-    type: 'text',
-    cellTemplate: BrandCell,
-  },
-  {
-    header: 'Category',
-    field: 'categoryId',
-    type: 'text',
-    cellTemplate: CategoryCell,
-  },
-  {
-    header: 'Price',
-    field: 'unitPrice',
-    type: 'money',
-    prefix: '$',
-  },
-  {
-    header: 'Created at',
-    field: 'createdAt',
-    type: 'date',
-  },
-  {
-    header: "Actions",
-    field: "actions",
-    type: "actions",
-    cellTemplate: ActionsCell,
-  }
-];
-
 const ProductsPage = () => {
   const productsService = React.useMemo(() => new ProductsService(), []);
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
+  const handleRowDeleted = async () => {
+    fetchProducts();
+  };
+
+  const columns = [
+    {
+      header: 'Name',
+      field: 'name',
+      type: 'text',
+    },
+    {
+      header: 'Brand',
+      field: 'brandId',
+      type: 'text',
+      cellTemplate: BrandCell,
+    },
+    {
+      header: 'Category',
+      field: 'categoryId',
+      type: 'text',
+      cellTemplate: CategoryCell,
+    },
+    {
+      header: 'Price',
+      field: 'unitPrice',
+      type: 'money',
+      prefix: '$',
+    },
+    {
+      header: 'Created at',
+      field: 'createdAt',
+      type: 'date',
+    },
+    {
+      header: "Actions",
+      field: "actions",
+      type: "actions",
+      cellTemplate: (props) => <ActionsCell {...props} onRowDeleted={handleRowDeleted} />,
+    }
+  ];
+
   const handleAddProduct = () => {
     navigate('/admin/products/create');
   };
 
+  const fetchProducts = async () => {
+    const result = await productsService.get();
+    setProducts(result);
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const result = await productsService.get();
-      setProducts(result);
-    };
 
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productsService]);
 
   return (
