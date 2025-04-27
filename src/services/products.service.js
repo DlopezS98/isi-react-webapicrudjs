@@ -32,4 +32,8 @@ export default class ProductsService extends HttpService {
 
         return Product.fromJson(json);
     }
+
+    async delete(id) {
+        await super.delete(`api/producto/${id}`);
+    }
 }
